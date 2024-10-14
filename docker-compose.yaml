@@ -1,0 +1,13 @@
+services:
+  server:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./
+    volumes:
+      - /server/node_modules
+      - ./:/server
+    environment:
+      - MONGO_DB_URI=${MONGO_DB_URI}
+      - ECOMMERCE_SECRET=${ECOMMERCE_SECRET}
+    ports:
+      - "8080:8080"

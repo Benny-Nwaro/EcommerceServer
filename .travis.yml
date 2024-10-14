@@ -5,3 +5,8 @@ before_install:
   - docker build -t benaroh30/server -f Dockerfile.dev .
 script:
   - docker run benaroh30/server npm test -- --coverage
+after_success:
+  #build production dockerfile
+  - docker build -t benaroh30/server .
+  - echo "$Docker_password" | docker login --username "$Docker_id" --password-stdin
+  - docker push benaroh30/server

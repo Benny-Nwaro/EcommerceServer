@@ -23,9 +23,9 @@ app.use(morgan('dev'));
 
 
 
-// app.get('/', (req, res)=>{
-//     res.send("Requesting Homepage").status(200);
-// })
+app.get('/', (req, res)=>{
+    res.send("Requesting Homepage").status(200);
+})
 // app.get("/test", (req, res)=>{
 //     res.json({"msg":"We are touching it"})
 // })

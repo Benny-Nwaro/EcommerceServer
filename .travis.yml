@@ -6,9 +6,17 @@ before_install:
 script:
   - docker run benaroh30/server npm test -- --coverage
 after_success:
+  - openssl enc -aes256 -d -in serviceAccount.json.enc -out serviceAccount.json -k $SERVICE_KEY
+  # Install GCP sdk deleting old versions
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud auth activate-service-account --key-file serviceAccount.json
+  - gcloud config set project eshop-438818
+  - gcloud config set compute/zone us-west2-a
 #Decrypt environment variables
   - openssl enc -aes256 -d -in .enc -out .env -k $SECRET_KEY
   #build production dockerfile
   - docker build -t benaroh30/server .
   - echo "$Docker_password" | docker login --username "$Docker_id" --password-stdin
   - docker push benaroh30/server
+  - bash ./deploy.sh

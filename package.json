@@ -9,7 +9,8 @@
     "view-coverage": "cd coverage/lcov-report/ && lite-server && ../../",
     "script": "node app.js",
     "start": "node app.js",
-    "nodemon": "node app.js"
+    "nodemon": "node app.js",
+    "server": "node app.js"
   },
   "repository": {
     "type": "git",

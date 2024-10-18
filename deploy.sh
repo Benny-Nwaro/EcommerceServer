@@ -30,4 +30,6 @@ list=$(gcloud_list)
 delete_version $list
 
 # deploy to google cloud provider
+gcloud config set project eshop-439007
+gcloud config set account eshop@eshop-439007.iam.gserviceaccount.com
 gcloud app deploy --stop-previous-version

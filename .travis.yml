@@ -29,6 +29,8 @@ after_success:
 
   # Authenticate using the service account and set the active account
   - gcloud auth activate-service-account --key-file serviceAccount.json 
+  - gcloud config set project eshop-439007
+  - gcloud config set account ben.nwaro@gmail.com
 
   # - gcloud config set account $(gcloud auth list --filter=status:ACTIVE --format="value(account)")
 
@@ -37,8 +39,7 @@ after_success:
 
   - gcloud config set compute/zone us-west2-a
 
-  # Deploy to Google Cloud
-  - gcloud app deploy 
+ 
 
   # Decrypt environment variables
   - openssl enc -aes256 -d -in .enc -out .env -k $SECRET_KEY
